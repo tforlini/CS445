@@ -20,3 +20,22 @@ java -jar Assignment1.jar
 
 ## Run the Unit testing
 
+First install JUnit
+
+```
+sudo apt-get install junit
+```
+
+Then compile the unit testing class
+
+```
+javac -cp /usr/share/java/junit.jar UnitTesting.java
+```
+
+Finally run the test
+
+```
+java -cp /usr/share/java/junit.jar:. org.junit.runner.JUnitCore UnitTesting
+```
+
+Note that you can also run the project from your IDE
