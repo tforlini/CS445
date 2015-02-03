@@ -9,7 +9,7 @@ public class Fly extends Creature implements Flyer {
 		super(name,lastEat);
 	}
 	
-	@Override
+	
 	public void fly() {
 
 		String msg = new String();
