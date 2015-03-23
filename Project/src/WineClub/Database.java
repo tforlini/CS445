@@ -62,7 +62,7 @@ public class Database {
 
 		
 		}
-		
+	// MOVE TO WINE CLUB	
 	public Customer getCustomerById(File file, int id) throws JsonParseException, JsonMappingException, IOException{
 		Customer customer = new Customer();
 		ArrayList<Customer> customers = new ArrayList<Customer>();
@@ -75,8 +75,7 @@ public class Database {
 		customer = customers.get(id);	
 		return customer;
 	}
-
-
+	// MOVE TO WINE CLUB
 	public Customer getCustomerByEmail(ArrayList<Customer> customers,String email){
 		
 		int i=0;
@@ -111,5 +110,21 @@ public class Database {
 		 return selection;
 
 	}
+	
+	public ArrayList<Shipment> getShipments() throws JsonParseException, JsonMappingException, IOException{
+	
+		ArrayList<Shipment> shipments = new ArrayList<Shipment>();
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		 try{
+			shipments = mapper.readValue(this.file, new TypeReference<ArrayList<Shipment>>(){});
+		 	}
+			catch(java.io.EOFException e){	
+			}
+		 return shipments;
+		
+	}
+	
+	
 	
 	}

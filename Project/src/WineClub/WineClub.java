@@ -7,7 +7,7 @@ public class WineClub {
 
 	protected MonthlySelection selection;
 	protected ArrayList<Customer> customers;
-	protected long numberOfCustomers;
+	protected static long numberOfCustomers;
 	protected ArrayList<Shipment> shipments;
 	protected static int numberOfDeliveries;
 	protected DeliveryHistory deliveryHistory;
@@ -68,7 +68,7 @@ public class WineClub {
 	}
 
 	public void setNumberOfCustomers(long numberOfCustomers) {
-		this.numberOfCustomers = numberOfCustomers;
+		WineClub.numberOfCustomers = numberOfCustomers;
 	}
 
 	public ArrayList<Shipment> getShipments() {
@@ -90,7 +90,7 @@ public class WineClub {
 	public void addCustomer(Customer customer){
 		if (checkEmail(this.customers,customer)){
 		this.customers.add(customer);
-		this.numberOfCustomers = customer.getId();
+		WineClub.numberOfCustomers = customer.getId();
 		}
 		else{
 			System.out.println("User already existing");
@@ -110,4 +110,9 @@ public class WineClub {
 		return false;
 	}
 	
+	public void addShipment(Shipment shipment){
+		
+		this.shipments.add(shipment);
+		WineClub.numberOfDeliveries++;
+	}
 }

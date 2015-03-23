@@ -1,40 +1,46 @@
 package WineClub;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Shipment {
 
+	protected int id;
 	protected int price;
-	protected static int numberOfMonthlySelections;
-	protected ArrayList<MonthlySelection> monthlySelection;
+	protected int numberOfMonthlySelections;
+	protected MonthlySelection monthlySelection;
 	protected String type;
 	protected Date subscriptionDate;
 	protected Customer customer;
-	protected static int averageRating;
+	protected double averageRating;
 	protected String note;
 	protected Date forecastedDeliveryDate;
 	protected String forecastedDeliveryTime;
 	protected int deliveryCharge;
+	protected static int shipmentsNumber;
 	
 	
 	
 	
 	public Shipment() {
-		this.price=0;
-		this.monthlySelection= new ArrayList<MonthlySelection>();
+		
+		this.price=50;
+		this.numberOfMonthlySelections=0;
+		this.monthlySelection= new MonthlySelection();
 		this.type="";
 		this.subscriptionDate=new Date();
 		this.customer=null;
 		this.note="";
 		this.forecastedDeliveryDate=null;
 		this.forecastedDeliveryTime="";
-		this.deliveryCharge=0;
-		
+		this.deliveryCharge=5;
+		shipmentsNumber++;
+		this.id=shipmentsNumber;
 	}
 	
-	public Shipment(int price,int numberOfMonthlySelections, ArrayList<MonthlySelection> monthlySelection,String type,Date subscriptionDate,Customer customer,String note,Date forecastedDeliveryDate,String forecastedDeliveryTime, int deliveryCharge) {
+	public Shipment(int id,int price,int numberOfMonthlySelections, MonthlySelection monthlySelection,String type,Date subscriptionDate,Customer customer,String note,Date forecastedDeliveryDate,String forecastedDeliveryTime, int deliveryCharge) {
+		this.id=id;
 		this.price=price;
+		this.numberOfMonthlySelections=numberOfMonthlySelections;
 		this.monthlySelection=monthlySelection;
 		this.type=type;
 		this.subscriptionDate=subscriptionDate;
@@ -43,6 +49,7 @@ public class Shipment {
 		this.forecastedDeliveryDate=null;
 		this.forecastedDeliveryTime="";
 		this.deliveryCharge=0;
+		shipmentsNumber++;
 	}
 	
 	public int getPrice() {
@@ -57,11 +64,39 @@ public class Shipment {
 		return numberOfMonthlySelections;
 	}
 
-	public ArrayList<MonthlySelection> getMonthlySelection() {
+	public MonthlySelection getMonthlySelection() {
 		return monthlySelection;
 	}
 
-	public void setMonthlySelection(ArrayList<MonthlySelection> monthlySelection) {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public double getAverageRating() {
+		return averageRating;
+	}
+
+	public void setAverageRating(double averageRating) {
+		this.averageRating = averageRating;
+	}
+
+	public static int getShipmentsNumber() {
+		return shipmentsNumber;
+	}
+
+	public static void setShipmentsNumber(int shipmentsNumber) {
+		Shipment.shipmentsNumber = shipmentsNumber;
+	}
+
+	public void setNumberOfMonthlySelections(int numberOfMonthlySelections) {
+		this.numberOfMonthlySelections = numberOfMonthlySelections;
+	}
+
+	public void setMonthlySelection(MonthlySelection monthlySelection) {
 		this.monthlySelection = monthlySelection;
 	}
 
@@ -89,12 +124,16 @@ public class Shipment {
 		this.customer = customer;
 	}
 
-	public static int getAveragRating() {
-		return averageRating;
-	}
-
-	public static void setAverageRating(int averageRating) {
-		Shipment.averageRating = averageRating;
+	
+	public void setAverageRating(){
+		int i=0; 
+		double	rating=0;
+		while(i<this.getMonthlySelection().getWines().size()){
+			rating = rating + this.getMonthlySelection().getWines().get(i).getRating();
+			i++;
+		}
+		rating = rating/6;
+		this.averageRating=rating;
 	}
 
 	public String getNote() {
@@ -129,9 +168,6 @@ public class Shipment {
 		this.deliveryCharge = deliveryCharge;
 	}
 
-	public void addSelection(MonthlySelection selection){
-		this.monthlySelection.add(selection);
-		
-	}
+
 	
 }

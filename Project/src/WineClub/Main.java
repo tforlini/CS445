@@ -2,25 +2,30 @@ package WineClub;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
 import org.json.simple.parser.ParseException;
 
-public class Main {
+public class Main implements Boundary{
 
 	public Main() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void main(String[] args) throws IOException, ParseException {
+	public void main(String[] args) throws IOException, ParseException, java.text.ParseException {
 		int option=0;
-		while (option!=9){
 		
 		WineClub club = new WineClub();
 		Database databaseUsers = new Database(club,new File("file.json"));
 		Database databaseWines = new Database(club,new File("Wines.json"));
+		Database databaseShipments = new Database(club,new File("Shipments.json"));
+		while (option!=9){
+		
+
 		club.setCustomers(databaseUsers.getCustomers(databaseUsers.getFile()));
+		club.setShipments(databaseShipments.getShipments());
 		club.setSelection(databaseWines.getWines(databaseWines.getFile()));
 		
 		System.out.println("****************************\n" +
@@ -69,7 +74,7 @@ public class Main {
 		case 4:	System.out.println("Set delivery type:\n");
 		
 				Customer customer2 = new Customer();
-				setDelivery(club,customer2);
+				setDelivery(club,customer2,databaseShipments);
 		
 			break;
 		case 5:	System.out.println("Set delivery date:\n");
@@ -79,10 +84,10 @@ public class Main {
 			
 		default: break;
 		}
+		databaseShipments.writeInFile(club.getShipments());
 		}
-
 	}
-		public static Customer createAccount(WineClub club){
+		public Customer createAccount(WineClub club){
 			
 			@SuppressWarnings("resource")
 			Scanner input = new Scanner(System.in);
@@ -117,7 +122,8 @@ public class Main {
 			return newCustomer;
 			
 }
-		public static void signIn(WineClub club,Database database){
+		
+		public void signIn(WineClub club,Database database){
 			
 			@SuppressWarnings("resource")
 			Scanner input = new Scanner(System.in);
@@ -143,7 +149,7 @@ public class Main {
 			}
 		}
 		
-		public static void previewSelection(WineClub club){
+		public void previewSelection(WineClub club){
 			
 			MonthlySelection selection = club.getSelection();
 			int i=0;
@@ -158,29 +164,45 @@ public class Main {
 				i++;
 			}
 		}
-
 		
-		public static void setDelivery(WineClub club, Customer customer){
+		@SuppressWarnings("deprecation")
+		public void setDelivery(WineClub club, Customer customer, Database databaseShipments) throws java.text.ParseException{
 			
 			
 			Shipment shipment = new Shipment();
 			MonthlySelection selection = club.getSelection();
-			shipment.addSelection(selection);
-			customer.addShipment(shipment);
+			shipment.setMonthlySelection(selection);
+			
+			
+			shipment.setAverageRating();
+			//System.out.println(shipment.getAveragRating());
 			
 			@SuppressWarnings("resource")
 			Scanner input = new Scanner(System.in);
 			System.out.println("How many Selection box do you want for this month ?\n");
 			String numberOfSelections = input.nextLine();
 			int number = Integer.parseInt(numberOfSelections);
-			customer.setNumberOfSelections(number);
-			System.out.println("Your number of monthly package is set to: " + customer.getNumberOfSelections());
+			shipment.setNumberOfMonthlySelections(number);
+			System.out.println("Your number of monthly package is set to: " + shipment.getNumberOfMonthlySelections());
 			
 			System.out.println("What delivery Type do you want ?\n");
 			System.out.println("(Type AR for all reds, AW for all whites and RW for a mix of 3 reds and 3 whites )");
 			String type = input.nextLine();
-			customer.getShipments().get(customer.getShipments().size()-1).setType(type);
-			System.out.println("Your type of monthly package is set to: " + customer.getShipments().get(customer.getShipments().size()-1).getType());
+			shipment.setType(type);
+			System.out.println("Your type of monthly package is set to: " + shipment.getType()+"\n");
+			
+			System.out.println("When do you want to be served ?");
+			System.out.println("Format : MM-DD-YYYY\n");
+			String date = input.nextLine();
+			SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+			Date dateStr = formatter.parse(date);
+			dateStr.setHours(12);
+			dateStr.setMinutes(30);
+			shipment.setForecastedDeliveryDate(dateStr);
+			System.out.println("Your delivery Date is set to: " + shipment.getForecastedDeliveryDate());
+			
+			customer.addShipment(shipment);
+			club.addShipment(shipment);
 			
 		}
 }
