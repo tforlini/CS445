@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runners.Parameterized.Parameters;
 
+import WineClub.Address;
 import WineClub.Customer;
 import WineClub.Database;
 import WineClub.WineClub;
@@ -41,10 +42,10 @@ public class TestWineClub {
 	public static ArrayList<Customer> data() {
 
 	    ArrayList<Customer> customers = new ArrayList<Customer>();
-	    Customer customer1 = new Customer(1,"Tony","Forlini","3000 N Sherian Rd",null,"","toforli@hotmail.com","","tony forlini","tforlini",null, "",null,0);
-	    Customer customer2 = new Customer(2,"Michael Jordan","Jordan","Chicago",null,"","mj23@gmail.com","","M jordan","@MJ23",null,"",null,0);
-	    Customer customer3 = new Customer(3,"Barack","Obama","Washington DC",null,"","bobama@gmail.com","","barack obama","@bObama",null,"",null,0);
-	    Customer customer4 = new Customer(4,"Steeve","Carell","Los Angeles",null,"","scarell@gmail.com","","steeve carell","@scarell",null,"",null,0);
+	    Customer customer1 = new Customer(1,"Tony","Forlini",new Address("3000 N Sherian Rd","Chicago","IL","60657"),null,"","toforli@hotmail.com","","tony forlini","tforlini",null, "",null,0);
+	    Customer customer2 = new Customer(2,"Michael Jordan","Jordan",new Address("Main streeet","Chicago","IL","60657"),null,"","mj23@gmail.com","","M jordan","@MJ23",null,"",null,0);
+	    Customer customer3 = new Customer(3,"Barack","Obama",new Address("White house rd","Washington DC","NY","45678"),null,"","bobama@gmail.com","","barack obama","@bObama",null,"",null,0);
+	    Customer customer4 = new Customer(4,"Steeve","Carell",new Address("Kreynshaw st","Los Angeles","CA","90210"),null,"","scarell@gmail.com","","steeve carell","@scarell",null,"",null,0);
 	    customers.add(customer1);
 	    customers.add(customer2);
 	    customers.add(customer3);
