@@ -1,34 +1,22 @@
 package WineClub;
 
-import java.util.ArrayList;
-
-
 public class WineClub {
 
 	protected MonthlySelection selection;
-	protected ArrayList<Customer> customers;
-	protected static long numberOfCustomers;
-	protected ArrayList<Shipment> shipments;
-	protected static int numberOfDeliveries;
 	protected DeliveryHistory deliveryHistory;
 	protected NoShipList noShipList;
 	
 	
 	public WineClub() {
-		this.selection = new MonthlySelection();
-		this.deliveryHistory = new DeliveryHistory();
-		this.noShipList = new NoShipList();
-		this.customers= new ArrayList<Customer>();
-		this.shipments= new ArrayList<Shipment>();
-		
+		this.selection = null;
+		this.deliveryHistory = null;
+		this.noShipList = null;
 	}
 	
-	public WineClub(MonthlySelection selection,DeliveryHistory deliveryHistory,NoShipList noShipList,ArrayList<Shipment> shipments,ArrayList<Customer> customers) {
+	public WineClub(MonthlySelection selection,DeliveryHistory deliveryHistory,NoShipList noShipList) {
 		this.selection = selection;
 		this.deliveryHistory = deliveryHistory;
 		this.noShipList = noShipList;
-		this.customers=customers;
-		this.shipments=shipments;
 	}
 
 	public MonthlySelection getSelection() {
@@ -54,65 +42,7 @@ public class WineClub {
 	public void setNoShipList(NoShipList noShipList) {
 		this.noShipList = noShipList;
 	}
-
-	public ArrayList<Customer> getCustomers() {
-		return customers;
-	}
-
-	public void setCustomers(ArrayList<Customer> customers) {
-		this.customers = customers;
-	}
-
-	public long getNumberOfCustomers() {
-		return numberOfCustomers;
-	}
-
-	public void setNumberOfCustomers(long numberOfCustomers) {
-		WineClub.numberOfCustomers = numberOfCustomers;
-	}
-
-	public ArrayList<Shipment> getShipments() {
-		return shipments;
-	}
-
-	public void setShipments(ArrayList<Shipment> shipments) {
-		this.shipments = shipments;
-	}
-
-	public static int getNumberOfDeliveries() {
-		return numberOfDeliveries;
-	}
-
-	public static void setNumberOfDeliveries(int numberOfDeliveries) {
-		WineClub.numberOfDeliveries = numberOfDeliveries;
-	}
 	
-	public void addCustomer(Customer customer){
-		if (checkEmail(this.customers,customer)){
-		this.customers.add(customer);
-		WineClub.numberOfCustomers = customer.getId();
-		}
-		else{
-			System.out.println("User already existing");
-		}
-		
-	}
 	
-	public boolean checkEmail(ArrayList<Customer> customers, Customer newCustomer){
-		
-		int i =0;
-		while (i<customers.size()){
-			if (!newCustomer.getEmail().equals(customers.get(i).getEmail())){
-			return true;
-			}
-			i++;
-		}
-		return false;
-	}
 	
-	public void addShipment(Shipment shipment){
-		
-		this.shipments.add(shipment);
-		WineClub.numberOfDeliveries++;
-	}
 }
