@@ -5,7 +5,7 @@
 
 
 First java need to be installed, it can be installed using the following command:
-  
+
 
 ```
 sudo apt-get install openjdk-7-jre
@@ -19,24 +19,26 @@ Once java is installed, one needs to install an Apache Tomcat servlet container 
 http://apache.mirrors.ionfish.org/tomcat/tomcat-8/v8.0.21/bin/apache-tomcat-8.0.21.tar.gz
 ```
 
-## Run the Unit testing
-
-First install JUnit
+Then untar the file with the following command:
 
 ```
-sudo apt-get install junit
+tar -xzvf apache-tomcat-8.0.21.tar.gz
 ```
 
-Then compile the unit testing class
+
+## Build the project
+
+A build.xml has been deployed to ease the building of the application. To build the application, make sure ant is installed on you machine and run the following command in the root directory of the project:
 
 ```
-javac -cp /usr/share/java/junit.jar UnitTesting.java
+ant
 ```
 
-Finally run the test
+This command will build the project and create a .war file under the build/ directory.
 
-```
-java -cp /usr/share/java/junit.jar:. org.junit.runner.JUnitCore UnitTesting
-```
+## Deploy the app on Tomcat
+
+
 
 Note that you can also run the project from your IDE
+
