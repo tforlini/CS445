@@ -38,7 +38,56 @@ This command will build the project and create a .war file under the build/ dire
 
 ## Deploy the app on Tomcat
 
+To deploy the application on Tomcat you need to copy the .war file into the webapps directory in your apache-tomcat-8.0.21 folder.
 
 
-Note that you can also run the project from your IDE
+Note that you can also deploy the project from your IDE by configuration the local server with Tomcat 8 and building the project (for instance with eclipse or eclipse with the Tomcat plugin). 
+
+
+## How to use the wine club
+
+The application follows the provided RESTful API at this address:
+
+```
+http://www.cs.iit.edu/~virgil/cs445/mail.spring2015/project-api.html
+```
+ 
+ Therse is two different options to use the application:
+ 
+ *The client:
+ 
+ Which is accessible at the root URL of the aplication : http://localhost:8080/edu.iit.cs445.vin/
+ 
+ With this interface you can POST and PUT your requests via HTML forms which is a user friendly way to fill your wine club up.
+ 
+ *The Curl requests:
+ 
+ Which is accessible using your shell. Curl is a command line interface for HTTP resuests. You can execute different kind of requests such as:
+ 
+-POST a request using a JSON file:
+ 
+```
+curl -X POST -H "Content-Type: application/json" -d @<your-json-file> <your-url>
+```
+
+-GET a response from URL:
+
+```
+curl -X GET <your-url>
+```
+
+-PUT a request using a JSON file:
+ 
+```
+curl -X PUT -H "Content-Type: application/json" -d @<your-json-file> <your-url>
+```
+ 
+-DELETE an object to URL:
+ 
+```
+curl -X DELETE <your-url>
+``` 
+ 
+ 
+ 
 
