@@ -62,7 +62,7 @@ http://www.cs.iit.edu/~virgil/cs445/mail.spring2015/project-api.html
  
  *The Curl requests:
  
- Which is accessible using your shell. Curl is a command line interface for HTTP resuests. You can execute different kind of requests such as:
+ Which is accessible using your shell. Curl is a command line interface for HTTP resuests. The base URL oof the app is http://localhost:8080/edu.iit.cs445.vin/rest/vin and then follows the api categories such as /sub or /admin. You can execute different kind of requests such as:
  
 -POST a request using a JSON file:
  
